@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const nuevaTareaInput = document.getElementById("nueva-tarea");
     const agregarTareaBtn = document.getElementById("agregar-tarea-btn");
     const restablecerTareasBtn = document.getElementById("restablecer-tareas");
+    const mensajeError = document.getElementById("mensaje-error");
 
     // Cargar tareas almacenadas en localStorage
     let tareasGuardadas = JSON.parse(localStorage.getItem("tareas")) || [];
@@ -35,7 +36,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // Evento de clic para el botón "Agregar Tarea"
     function agregarTarea() {
         const nuevaTareaTexto = nuevaTareaInput.value.trim();
-        if (nuevaTareaTexto !== "") {
+        if (nuevaTareaTexto === "") {
+            // Mostrar mensaje de error si el campo está vacío
+            mensajeError.style.display = "block";
+        } else {
+            // Ocultar mensaje de error si hay texto
+            mensajeError.style.display = "none";
             tareasGuardadas.push({ texto: nuevaTareaTexto, completada: false });
             nuevaTareaInput.value = ""; // Limpiar el campo de entrada
             actualizarListaTareas();
